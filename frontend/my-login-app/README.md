@@ -22,7 +22,7 @@ This is the frontend part of the application built using **React** and **React R
 1. **Clone the Repository**:
    ```bash
    git clone  https://github.com/Styagi97/my-fullstack-app.git
-   cd my-fullstack-app/frontend
+   cd my-fullstack-app/frontend/my-login-app
 
 2. **Install Dependencies**:
      ```bash
