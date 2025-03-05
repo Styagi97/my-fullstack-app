@@ -3,14 +3,12 @@ import { useNavigate } from "react-router-dom";
 
 const UserHome = () => {
     const navigate = useNavigate();
-
-    // Retrieve user data from localStorage
+ 
     const userId = localStorage.getItem("userId");
     const username = localStorage.getItem("username");
     const token = localStorage.getItem("token");
 
-    const handleLogout = () => {
-        // Clear user data from localStorage
+    const handleLogout = () => { 
         localStorage.removeItem("userId");
         localStorage.removeItem("username");
         localStorage.removeItem("token");

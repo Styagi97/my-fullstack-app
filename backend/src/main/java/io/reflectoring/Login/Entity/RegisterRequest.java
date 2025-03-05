@@ -1,15 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package io.reflectoring.Login.Entity;
+ package io.reflectoring.Login.Entity;
+
 import lombok.Data;
 import java.util.Set;
-import java.util.stream.Collectors;
-/**
- *
- * @author uday enter
- */ 
+import java.util.stream.Collectors;  
 @Data
 public class RegisterRequest {
     private String username;

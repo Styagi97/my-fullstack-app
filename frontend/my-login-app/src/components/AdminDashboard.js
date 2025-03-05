@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import EditUserDialog from "./EditUserDialog";
-import "./AdminDashboard.css";
+import "../styles/AdminDashboard.css";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState({
-    id: null, // Fixed: Use null or a valid default value
+    id: null,  
     username: "",
     email: "",
     roles: []

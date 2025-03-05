@@ -21,9 +21,9 @@ const ResetPassword = () => {
         body: JSON.stringify({ token, newPassword }),
       });
       const data = await response.json();
-      setMessage(data); // Display the response message
+      setMessage(data); 
       if (response.ok) {
-        navigate("/login"); // Redirect to login page after successful reset
+        navigate("/login");  
       }
     } catch (error) {
       setMessage("An error occurred. Please try again.");

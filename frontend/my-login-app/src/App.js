@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import AuthForm from "./Login";
-import UserHome from "./UserHome";
-import AdminDashboard from "./AdminDashboard";
-import ProtectedRoute from "./ProtectedRoute"; 
+import AuthForm from "./components/Login";
+import UserHome from "./components/UserHome";
+import AdminDashboard from "./components/AdminDashboard";
+import ProtectedRoute from "./components/ProtectedRoute"; 
 
 
 const App = () => {

@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+ 
 package io.reflectoring.Login.Controller;
 
 import io.reflectoring.Login.Entity.AuthRequest;
@@ -15,11 +12,7 @@ import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-/**
- *
- * @author uday enter
- */
+ 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/auth")
@@ -37,8 +30,8 @@ public class AuthController {
         Thread.sleep(2000);
         return authService.registerUser(request);
     }
-//Login User
-
+    
+    //Login User
     @PostMapping("/login")
     public LoginResponse login(@RequestBody AuthRequest request) throws InterruptedException {
         System.out.println(request);
@@ -49,7 +42,7 @@ public class AuthController {
     //get User
     @GetMapping("/users")
     public List<User> getUsersByRole(@RequestParam String role) {
-        return authService.getUsersByRole(role); // Call the service method
+        return authService.getUsersByRole(role);  
     }
 // Update User
 

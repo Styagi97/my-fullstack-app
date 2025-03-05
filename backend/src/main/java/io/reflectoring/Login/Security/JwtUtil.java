@@ -19,13 +19,11 @@ public class JwtUtil {
     @Value("${jwt.expiration}")
     private long expiration;
 
-    // Convert secret key to SecretKey object
     private SecretKey getSigningKey() {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    // Generate JWT Token
     public String generateToken(String username) {
         return Jwts.builder()
                 .setSubject(username)
@@ -35,18 +33,15 @@ public class JwtUtil {
                 .compact();
     }
 
-    // Validate JWT Token
     public boolean validateToken(String token, String username) {
         final String extractedUsername = extractUsername(token);
         return (extractedUsername.equals(username) && !isTokenExpired(token));
     }
 
-    // Extract Username
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
-    // Check if Token is Expired
     private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
@@ -62,9 +57,9 @@ public class JwtUtil {
 
     private Claims extractAllClaims(String token) {
         return Jwts.parser()
-                .setSigningKey(getSigningKey()) // Correct signing key
+                .setSigningKey(getSigningKey())
                 .build()
-                .parseClaimsJws(token) // Parse the token
+                .parseClaimsJws(token)
                 .getBody();
     }
 

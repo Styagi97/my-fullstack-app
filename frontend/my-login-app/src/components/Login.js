@@ -25,7 +25,9 @@ const AuthForm = () => {
         confirmPassword: isLogin
                 ? Yup.string().notRequired()
                 : Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match').required('Confirm Password is required'),
-        role: Yup.string().oneOf(["USER", "ADMIN"], "Invalid role").required("Role is required"),
+        role: isLogin
+                ? Yup.string().notRequired()
+                : Yup.string().oneOf(["USER", "ADMIN"], "Invalid role").required("Role is required"),
     });
 
     const formik = useFormik({
@@ -46,14 +48,13 @@ const AuthForm = () => {
                         ? "http://localhost:8080/auth/login"
                         : "http://localhost:8080/auth/register";
 
-                const response = await axios.post(endpoint, {
-                    ...values,
-                    roles: [values.role] // Ensure roles are sent as an array
-                });
+                const payload = isLogin
+                        ? {email: values.email, password: values.password}
+                : {...values, roles: [values.role]};
+
+                const response = await axios.post(endpoint, payload);
 
                 if (isLogin) {
-                    // Store token and role in localStorage
-                    // Store userId, username, and token in localStorage
                     localStorage.setItem("userId", response.data.userId);
                     localStorage.setItem("token", response.data.token);
                     localStorage.setItem("role", response.data.roles[0]);
@@ -74,7 +75,25 @@ const AuthForm = () => {
                 setError("");
             } catch (error) {
                 if (error.response) {
-                    setError(error.response.data.message || "An error occurred. Please try again.");
+                    // Handle specific error cases for login
+                    if (isLogin) {
+                        if (error.response.status === 404) {
+                            setError("Incorrect email. User not found.");
+                        } else if (error.response.status === 401) {
+                            setError("Incorrect password. Please try again.");
+                        } else if (error.response.status === 400) {
+                            setError(error.response.data || "Invalid request. Please check your input.");
+                        } else {
+                            setError(error.response.data.message || "An error occurred. Please try again.");
+                        }
+                    } else {
+                        // Handle registration errors
+                        if (error.response.status === 409) {
+                            setError("User already exists. Please use a different email.");
+                        } else {
+                            setError(error.response.data.message || "An error occurred. Please try again.");
+                        }
+                    }
                 } else if (error.request) {
                     setError("Network error. Please check your internet connection.");
                 } else if (error.code === "ECONNABORTED") {
@@ -85,7 +104,7 @@ const AuthForm = () => {
             } finally {
                 setLoading(false);
         }
-        },
+        }
     });
 
     return (
@@ -93,6 +112,7 @@ const AuthForm = () => {
                 <h2>{isLogin ? "Login" : "Register"}</h2>
             
                 {error && <p className="error alert alert-danger">{error}</p>}
+            
             
                 <form onSubmit={formik.handleSubmit}>
                     {!isLogin && (
@@ -151,23 +171,25 @@ const AuthForm = () => {
                             </div>
                                 )}
             
-                    <div className="mb-3">
-                        <label className="form-label">Role:</label>
-                        <select
-                            name="role"
-                            className="form-select"
-                            value={formik.values.role}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            >
-                            <option value="">Select</option>
-                            <option value="USER">User</option>
-                            <option value="ADMIN">Admin</option>
-                        </select>
-                        {formik.touched.role && formik.errors.role && (
-                            <p className="error text-danger">{formik.errors.role}</p>
-                                    )}
-                    </div>
+                    {!isLogin && (
+                            <div className="mb-3">
+                                <label className="form-label">Role:</label>
+                                <select
+                                    name="role"
+                                    className="form-select"
+                                    value={formik.values.role}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                    >
+                                    <option value="">Select</option>
+                                    <option value="USER">User</option>
+                                    <option value="ADMIN">Admin</option>
+                                </select>
+                                {formik.touched.role && formik.errors.role && (
+                                                        <p className="error text-danger">{formik.errors.role}</p>
+                                                            )}
+                            </div>
+                                )}
             
                     <button type="submit" className="btn btn-primary" disabled={loading}>
                         {loading ? (
