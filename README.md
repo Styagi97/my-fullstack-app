@@ -21,41 +21,7 @@ This project is a full-stack application that provides user authentication and m
 - Java Development Kit (JDK) 17 or higher
 - Node.js and npm
 - MySQL database
-
-## Setup Instructions
-
-### Backend Setup
-
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/Styagi97/Login-Springboot.git
-   cd login-system/backend
-
-### Steps to Run the Project
-
-1. **Clone the Repository**:
-   ```bash
-   git clone  https://github.com/Styagi97/Login-Springboot.git
-   cd login-system/frontend
-2.**Build the Project:** 
- mvn clean install
-**Run the Application:** 
-mvn spring-boot:run
-**Access the Application:**
-The application will start on http://localhost:8080.
-
-### Frontend Setup
-
-**1.Navigate to the frontend directory:**
-      bash 
-      cd ../frontend
-**2.Install dependencies:**
-      bash 
-      npm install
-**3.Start the React development server:**
-      bash 
-      npm start 
-
+ 
 ### Usage
 **1.Register a new user:**
          Navigate to the registration page.
