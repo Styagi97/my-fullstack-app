@@ -31,7 +31,7 @@ This project is a full-stack application that provides user authentication and m
 1. **Clone the repository**:
    ```bash
    git clone https://github.com/Styagi97/my-fullstack-app.git
-   cd lmy-fullstack-app/backend
+   cd my-fullstack-app/backend
 
 2. **Configure the Database:**
 	Create a MySQL database named login_springboot. 
